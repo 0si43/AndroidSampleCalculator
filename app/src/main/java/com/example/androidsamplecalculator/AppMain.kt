@@ -4,10 +4,20 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.remember
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun AppMain() {
-    Column() {
+    Column(
+        modifier = Modifier.fillMaxSize()
+            .fillMaxHeight(),
+        verticalArrangement = Arrangement.SpaceEvenly
+    ) {
         var result by remember { mutableStateOf("") }
         val onTapNumber: (Int) -> Unit = {
             if (result != "" || it != 0) {
@@ -45,36 +55,65 @@ fun AppMain() {
             }
         }
 
-        Text(text = result.toString())
-        Row() {
-            ClearButton(onTap = onTapClear)
-            EmptyButton()
-            EmptyButton()
-            OperatorButton(operator = Operator.DIVIDE, onTap = onTapOperator)
+        Text(
+            modifier = Modifier.fillMaxWidth()
+                            .weight(1.0f),
+            textAlign = TextAlign.Right,
+            text = result.toString(),
+            fontSize = 60.sp,
+            softWrap = false,
+            maxLines = 1
+        )
+        Row(
+            modifier = Modifier.fillMaxWidth()
+                            .weight(1.0f),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            ClearButton(modifier = Modifier.weight(1.0f), onTap = onTapClear)
+            EmptyButton(modifier = Modifier.weight(1.0f))
+            EmptyButton(modifier = Modifier.weight(1.0f))
+            OperatorButton(modifier = Modifier.weight(1.0f), operator = Operator.DIVIDE, onTap = onTapOperator)
         }
-        Row() {
-            NumberButton(number = 7, onTap = onTapNumber)
-            NumberButton(number = 8, onTap = onTapNumber)
-            NumberButton(number = 9, onTap = onTapNumber)
-            OperatorButton(operator = Operator.MULTIPLY, onTap = onTapOperator)
+        Row(
+            modifier = Modifier.fillMaxWidth()
+                .fillMaxHeight()
+                .weight(1.0f),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            NumberButton(modifier = Modifier.weight(1.0f), number = 7, onTap = onTapNumber)
+            NumberButton(modifier = Modifier.weight(1.0f), number = 8, onTap = onTapNumber)
+            NumberButton(modifier = Modifier.weight(1.0f), number = 9, onTap = onTapNumber)
+            OperatorButton(modifier = Modifier.weight(1.0f), operator = Operator.MULTIPLY, onTap = onTapOperator)
         }
-        Row() {
-            NumberButton(number = 4, onTap = onTapNumber)
-            NumberButton(number = 5, onTap = onTapNumber)
-            NumberButton(number = 6, onTap = onTapNumber)
-            OperatorButton(operator = Operator.MINUS, onTap = onTapOperator)
+        Row(
+            modifier = Modifier.fillMaxWidth()
+                            .weight(1.0f),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            NumberButton(modifier = Modifier.weight(1.0f), number = 4, onTap = onTapNumber)
+            NumberButton(modifier = Modifier.weight(1.0f), number = 5, onTap = onTapNumber)
+            NumberButton(modifier = Modifier.weight(1.0f), number = 6, onTap = onTapNumber)
+            OperatorButton(modifier = Modifier.weight(1.0f), operator = Operator.MINUS, onTap = onTapOperator)
         }
-        Row() {
-            NumberButton(number = 1, onTap = onTapNumber)
-            NumberButton(number = 2, onTap = onTapNumber)
-            NumberButton(number = 3, onTap = onTapNumber)
-            OperatorButton(operator = Operator.PLUS, onTap = onTapOperator)
+        Row(
+            modifier = Modifier.fillMaxWidth()
+                            .weight(1.0f),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            NumberButton(modifier = Modifier.weight(1.0f), number = 1, onTap = onTapNumber)
+            NumberButton(modifier = Modifier.weight(1.0f), number = 2, onTap = onTapNumber)
+            NumberButton(modifier = Modifier.weight(1.0f), number = 3, onTap = onTapNumber)
+            OperatorButton(modifier = Modifier.weight(1.0f), operator = Operator.PLUS, onTap = onTapOperator)
         }
-        Row() {
-            NumberButton(number = 0, onTap = onTapNumber)
-            EmptyButton()
-            DeleteButton(onTap = onTapDelete)
-            EqualButton(onTap = onTapEqual)
+        Row(
+            modifier = Modifier.fillMaxWidth()
+                            .weight(1.0f),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            NumberButton(modifier = Modifier.weight(1.0f), number = 0, onTap = onTapNumber)
+            EmptyButton(modifier = Modifier.weight(1.0f))
+            DeleteButton(modifier = Modifier.weight(1.0f), onTap = onTapDelete)
+            EqualButton(modifier = Modifier.weight(1.0f), onTap = onTapEqual)
         }
     }
 }
