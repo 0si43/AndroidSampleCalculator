@@ -5,6 +5,32 @@ import androidx.compose.runtime.remember
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 
+enum class Operator(val symbol: String) {
+    PLUS("+") {
+        override fun calculate(lhs: Int, rhs: Int): Int {
+            return lhs + rhs
+        }
+    },
+    MINUS("-"){
+        override fun calculate(lhs: Int, rhs: Int): Int {
+            return lhs - rhs
+        }
+    },
+    MULTIPLY("*"){
+        override fun calculate(lhs: Int, rhs: Int): Int {
+            return lhs * rhs
+        }
+    },
+    DIVIDE("/"){
+        override fun calculate(lhs: Int, rhs: Int): Int {
+            return lhs / rhs
+        }
+    };
+
+    abstract fun calculate(lhs: Int, rhs: Int): Int
+}
+
+
 @Composable
 fun AppMain() {
     Column() {
@@ -15,8 +41,8 @@ fun AppMain() {
             }
         }
         var savedNumber by remember { mutableStateOf("") }
-        var operator by remember { mutableStateOf("") }
-        val onTapOperator: (String) -> Unit = {
+        var operator: Operator? by remember { mutableStateOf(null) }
+        val onTapOperator: (Operator) -> Unit = {
             if (savedNumber.isEmpty()) {
                 savedNumber = result
                 result = ""
@@ -27,14 +53,9 @@ fun AppMain() {
             if (!savedNumber.isEmpty()) {
                 val lhs = savedNumber.toIntOrNull() ?: 0
                 val rhs = result.toIntOrNull() ?: 0
-                when (operator) {
-                    "+" -> result = (lhs + rhs).toString()
-                    "-" -> result = (lhs - rhs).toString()
-                    "*" -> result = (lhs * rhs).toString()
-                    "/" -> result = (lhs / rhs).toString()
-                }
+                result = operator?.calculate(lhs, rhs).toString()
                 savedNumber = ""
-                operator = ""
+                operator = null
             }
         }
 
@@ -55,25 +76,25 @@ fun AppMain() {
             ClearButton(onTap = onTapClear)
             EmptyButton()
             EmptyButton()
-            OperatorButton(operator = "/", onTap = onTapOperator)
+            OperatorButton(operator = Operator.DIVIDE, onTap = onTapOperator)
         }
         Row() {
             NumberButton(number = 7, onTap = onTapNumber)
             NumberButton(number = 8, onTap = onTapNumber)
             NumberButton(number = 9, onTap = onTapNumber)
-            OperatorButton(operator = "*", onTap = onTapOperator)
+            OperatorButton(operator = Operator.MULTIPLY, onTap = onTapOperator)
         }
         Row() {
             NumberButton(number = 4, onTap = onTapNumber)
             NumberButton(number = 5, onTap = onTapNumber)
             NumberButton(number = 6, onTap = onTapNumber)
-            OperatorButton(operator = "-", onTap = onTapOperator)
+            OperatorButton(operator = Operator.MINUS, onTap = onTapOperator)
         }
         Row() {
             NumberButton(number = 1, onTap = onTapNumber)
             NumberButton(number = 2, onTap = onTapNumber)
             NumberButton(number = 3, onTap = onTapNumber)
-            OperatorButton(operator = "+", onTap = onTapOperator)
+            OperatorButton(operator = Operator.PLUS, onTap = onTapOperator)
         }
         Row() {
             NumberButton(number = 0, onTap = onTapNumber)
