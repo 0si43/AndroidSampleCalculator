@@ -11,8 +11,7 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun AppMain() {
     Column(
-        modifier = Modifier.fillMaxSize()
-            .fillMaxHeight(),
+        modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
         var result by remember { mutableStateOf("") }
